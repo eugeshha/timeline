@@ -110,45 +110,12 @@ export default class App {
   }
 
   formatDate(date) {
-    const now = new Date();
-    const diff = now - date;
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
 
-    if (seconds < 60) {
-      return "только что";
-    } else if (minutes < 60) {
-      return `${minutes} ${this.pluralize(minutes, "минуту", "минуты", "минут")} назад`;
-    } else if (hours < 24) {
-      return `${hours} ${this.pluralize(hours, "час", "часа", "часов")} назад`;
-    } else if (days < 7) {
-      return `${days} ${this.pluralize(days, "день", "дня", "дней")} назад`;
-    } else {
-      return date.toLocaleDateString("ru-RU", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    }
-  }
-
-  pluralize(count, one, few, many) {
-    const mod10 = count % 10;
-    const mod100 = count % 100;
-
-    if (mod100 >= 11 && mod100 <= 19) {
-      return many;
-    }
-    if (mod10 === 1) {
-      return one;
-    }
-    if (mod10 >= 2 && mod10 <= 4) {
-      return few;
-    }
-    return many;
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
 }
