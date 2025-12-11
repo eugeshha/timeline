@@ -11,3 +11,4 @@ export default class TextPost {
     return `${this.coordinates.latitude.toFixed(5)}, ${this.coordinates.longitude.toFixed(5)}`;
   }
 }
+

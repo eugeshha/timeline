@@ -69,3 +69,4 @@ describe("parseCoordinates", () => {
     expect(() => parseCoordinates(null)).toThrow("Invalid input format");
   });
 });
+

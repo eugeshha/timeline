@@ -52,6 +52,19 @@ body {
   border-radius: 4px;
   padding: 15px;
   margin-bottom: 15px;
+  position: relative;
+}
+
+.post-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.post-date {
+  font-size: 12px;
+  color: #999;
+  font-weight: 400;
 }
 
 .post-content {
@@ -218,4 +231,5 @@ body {
     bottom: 10px;
   }
 }
+
 

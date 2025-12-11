@@ -80,13 +80,20 @@ export default class App {
 
     posts.forEach((post) => {
       const postElement = this.createPostElement(post);
-      container.appendChild(postElement);
+      container.append(postElement);
     });
   }
 
   createPostElement(post) {
     const div = document.createElement("div");
     div.className = "post post-text";
+
+    const header = document.createElement("div");
+    header.className = "post-header";
+
+    const date = document.createElement("div");
+    date.className = "post-date";
+    date.textContent = this.formatDate(post.createdAt);
 
     const content = document.createElement("div");
     content.className = "post-content";
@@ -96,9 +103,52 @@ export default class App {
     coords.className = "post-coordinates";
     coords.textContent = post.formatCoordinates();
 
-    div.appendChild(content);
-    div.appendChild(coords);
+    header.append(date);
+    div.append(header, content, coords);
 
     return div;
+  }
+
+  formatDate(date) {
+    const now = new Date();
+    const diff = now - date;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+      return "только что";
+    } else if (minutes < 60) {
+      return `${minutes} ${this.pluralize(minutes, "минуту", "минуты", "минут")} назад`;
+    } else if (hours < 24) {
+      return `${hours} ${this.pluralize(hours, "час", "часа", "часов")} назад`;
+    } else if (days < 7) {
+      return `${days} ${this.pluralize(days, "день", "дня", "дней")} назад`;
+    } else {
+      return date.toLocaleDateString("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+  }
+
+  pluralize(count, one, few, many) {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+
+    if (mod100 >= 11 && mod100 <= 19) {
+      return many;
+    }
+    if (mod10 === 1) {
+      return one;
+    }
+    if (mod10 >= 2 && mod10 <= 4) {
+      return few;
+    }
+    return many;
   }
 }

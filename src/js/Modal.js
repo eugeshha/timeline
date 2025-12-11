@@ -9,7 +9,7 @@ export default class Modal {
       this.container = document.createElement("div");
       this.container.id = "coordsModal";
       this.container.className = "modal";
-      document.body.appendChild(this.container);
+      document.body.append(this.container);
     }
   }
 
@@ -69,3 +69,4 @@ export default class Modal {
     this.container.innerHTML = "";
   }
 }
+

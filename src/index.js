@@ -4,3 +4,4 @@ import App from "./js/app.js";
 document.addEventListener("DOMContentLoaded", () => {
   new App();
 });
+
